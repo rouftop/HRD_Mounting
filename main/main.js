@@ -729,6 +729,10 @@ function changeStep() {
     else if (currentStep === 8) {
         step8();
         currentStep = 0; // Reset to the first step
+        screwTR.position.set(0.9375, -5, 0);
+        screwTL.position.set(-0.9375, -5, 0);
+        screwBL.position.set(-0.9375, -5.885, 0);
+        screwBR.position.set(0.9375, -5.885, 0);
     }
 };
 
