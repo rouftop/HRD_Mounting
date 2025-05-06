@@ -701,11 +701,7 @@ function changeStep() {
     if (currentStep === 0) {
         
     } else if (currentStep === 1) {
-        if(camera.position.set(
-  radius * Math.cos(Math.PI / 2),
-  0,
-  radius * Math.sin(Math.PI / 2)
-) === true){
+        if(camera.position.equals(new THREE.Vector3(radius * Math.cos(Math.PI / 2), 0, radius * Math.sin(Math.PI / 2)))) {
             step1();
         }
         else{
