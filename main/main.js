@@ -699,6 +699,10 @@ function changeStep() {
     }
 
     if (currentStep === 0) {
+        screwTR.position.set(0.9375, -5, 0);
+        screwTL.position.set(-0.9375, -5, 0);
+        screwBL.position.set(-0.9375, -5.885, 0);
+        screwBR.position.set(0.9375, -5.885, 0);
         
     } else if (currentStep === 1) {
         if(camera.position.equals(new THREE.Vector3(radius * Math.cos(Math.PI / 2), 0, radius * Math.sin(Math.PI / 2)))) {
@@ -729,10 +733,6 @@ function changeStep() {
     else if (currentStep === 8) {
         step8();
         currentStep = 0; // Reset to the first step
-        screwTR.position.set(0.9375, -5, 0);
-        screwTL.position.set(-0.9375, -5, 0);
-        screwBL.position.set(-0.9375, -5.885, 0);
-        screwBR.position.set(0.9375, -5.885, 0);
     }
 };
 
