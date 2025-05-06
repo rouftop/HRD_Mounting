@@ -310,9 +310,14 @@ let rotationStartTime = null;
 let rotationDuration = 2000; // 2 seconds for one full rotation
 
 function startRotation() {
-    if (isRotating) return; // prevent stacking rotations
-    isRotating = true;
-    rotationStartTime = performance.now();
+    if(!camera.position.set(radius * Math.cos(angle),0,radius * Math.sin(angle))){
+        return;
+    }
+    else{
+        if (isRotating) return; // prevent stacking rotations
+        isRotating = true;
+        rotationStartTime = performance.now();
+    }
 
 }
 
