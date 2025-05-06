@@ -682,6 +682,16 @@ function step8() {
     reverseRotation();
 }
 
+function canTriggerStep() {
+    return !isRotating && 
+           !rotatingObjects && 
+           !moving && 
+           !screwMoving && 
+           !screwMoving1 && 
+           !movingBack && 
+           !rotatingBackObjects;
+}
+
 function changeStep() {
     currentStep += 1;
     if (currentStep >= mountingSteps.length) {
@@ -691,7 +701,10 @@ function changeStep() {
     if (currentStep === 0) {
         
     } else if (currentStep === 1) {
-        step1();
+        if(canTriggerStep()){
+            step1();
+        }
+        currentStep = 0;
     }
     else if (currentStep === 2) {
         step2();
@@ -717,15 +730,7 @@ function changeStep() {
     }
 };
 
-function canTriggerStep() {
-    return !isRotating && 
-           !rotatingObjects && 
-           !moving && 
-           !screwMoving && 
-           !screwMoving1 && 
-           !movingBack && 
-           !rotatingBackObjects;
-}
+
 
 window.addEventListener('wheel', (event) => {
     if (canTriggerStep()) {
