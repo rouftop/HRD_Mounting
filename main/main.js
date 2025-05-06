@@ -701,10 +701,12 @@ function changeStep() {
     if (currentStep === 0) {
         
     } else if (currentStep === 1) {
-        if(!canTriggerStep()){
+        if(canTriggerStep()){
             step1();
         }
-        currentStep = 0;
+        else{
+            currentStep = 0;
+        }
     }
     else if (currentStep === 2) {
         step2();
