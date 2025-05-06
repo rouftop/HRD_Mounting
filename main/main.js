@@ -310,14 +310,9 @@ let rotationStartTime = null;
 let rotationDuration = 2000; // 2 seconds for one full rotation
 
 function startRotation() {
-    if(!camera.position.set(radius * Math.cos(angle),0,radius * Math.sin(angle))){
-        return;
-    }
-    else{
-        if (isRotating) return; // prevent stacking rotations
-        isRotating = true;
-        rotationStartTime = performance.now();
-    }
+    if (isRotating) return; // prevent stacking rotations
+    isRotating = true;
+    rotationStartTime = performance.now();
 
 }
 
@@ -706,7 +701,11 @@ function changeStep() {
     if (currentStep === 0) {
         
     } else if (currentStep === 1) {
-        if(canTriggerStep()){
+        if(camera.position.set(
+  radius * Math.cos(Math.PI / 2),
+  0,
+  radius * Math.sin(Math.PI / 2)
+) === true){
             step1();
         }
         else{
