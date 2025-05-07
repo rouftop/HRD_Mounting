@@ -326,7 +326,7 @@ function updateRotation() {
     // Ease in-out for smoothness
     const easedProgress = 0.5 - Math.cos(progress * Math.PI) / 2;
 
-    const fullRotation = Math.PI / 2.5;
+    const fullRotation = Math.PI / 2.25;
     const currentAngle = startAngle + fullRotation * easedProgress;
 
     const x = radius * Math.cos(currentAngle);
@@ -347,9 +347,11 @@ let reverseRotationStartTime = null;
 let reverseRotationDuration = 2000; // 2 seconds for reverse rotation
 
 function reverseRotation() {
-    if (isReverseRotating || isRotating) return; // prevent concurrent rotations
+    if (isReverseRotating || isRotating) return;
     isReverseRotating = true;
     reverseRotationStartTime = performance.now();
+    // Store the current angle as starting point
+    startAngle = Math.atan2(camera.position.z, camera.position.x);
 }
 
 function updateReverseRotation() {
@@ -357,14 +359,13 @@ function updateReverseRotation() {
 
     const elapsedTime = performance.now() - reverseRotationStartTime;
     let progress = elapsedTime / reverseRotationDuration;
-    progress = Math.min(progress, 1); // Clamp between 0 and 1
+    progress = Math.min(progress, 1);
 
-    // Ease in-out for smoothness
     const easedProgress = 0.5 - Math.cos(progress * Math.PI) / 2;
-
-    const fullRotation = Math.PI / 2.5;
-    // Reverse the rotation by subtracting instead of adding
-    const currentAngle = startAngle - fullRotation * easedProgress;
+    
+    // Calculate angle difference to return to front (Math.PI / 2)
+    const targetFrontAngle = Math.PI / 2;
+    const currentAngle = startAngle + (targetFrontAngle - startAngle) * easedProgress;
 
     const x = radius * Math.cos(currentAngle);
     const z = radius * Math.sin(currentAngle);
@@ -375,7 +376,7 @@ function updateReverseRotation() {
 
     if (progress >= 1) {
         isReverseRotating = false;
-        startAngle = currentAngle % (Math.PI * 2); // reset angle nicely
+        startAngle = Math.PI / 2; // Reset to front position
     }
 }
 
